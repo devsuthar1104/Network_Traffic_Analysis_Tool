@@ -1,0 +1,4 @@
+django
+djangorestframework
+pyshark
+scikit-learn

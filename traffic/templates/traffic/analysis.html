@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Analysis Results</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #121212;
+            color: #ffffff;
+        }
+        h1 {
+            color: #00ff00;
+            margin-top: 20px;
+        }
+        .results-list {
+            background-color: #1e1e1e;
+            border-radius: 5px;
+            padding: 20px;
+        }
+        .results-list li {
+            background-color: #2a2a2a;
+            margin: 5px 0;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .back-btn {
+            background-color: #00ff00;
+            color: #121212;
+            margin-top: 20px;
+        }
+        .back-btn:hover {
+            background-color: #00cc00;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center">Anomaly Detection Results</h1>
+        <div class="results-list">
+            <ul class="list-unstyled">
+                {% for anomaly in anomalies %}
+                <li>{{ anomaly }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="text-center">
+            <a href="{% url 'index' %}" class="btn back-btn">Back to Home</a>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

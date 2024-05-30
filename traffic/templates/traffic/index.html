@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Network Traffic Analysis</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #121212;
+            color: #ffffff;
+            font-family: 'Arial', sans-serif;
+        }
+        h1 {
+            color: #00ff00;
+            margin-top: 20px;
+        }
+        .table {
+            background-color: #1e1e1e;
+            color: #ffffff; /* Changed text color to white */
+        }
+        .table thead th {
+            color: #00ff00;
+        }
+        .table tbody tr:nth-child(odd) {
+            background-color: #2a2a2a;
+        }
+        .table tbody tr:nth-child(even) {
+            background-color: #1a1a1a;
+        }
+        .analyze-btn {
+            background-color: #00ff00;
+            color: #121212;
+            margin-top: 20px;
+        }
+        .analyze-btn:hover {
+            background-color: #00cc00;
+        }
+        .form-control {
+            background-color: #1e1e1e;
+            color: #ffffff;
+            border-color: #00ff00;
+        }
+        .form-control::placeholder {
+            color: #888;
+        }
+        .form-label {
+            color: #00ff00;
+        }
+        .submit-btn {
+            background-color: #00ff00;
+            color: #121212;
+        }
+        .submit-btn:hover {
+            background-color: #00cc00;
+        }
+        .form-container {
+            background-color: #1e1e1e;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center">Network Traffic Data</h1>
+
+        <div class="form-container">
+            <form method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="{{ form.source_ip.id_for_label }}" class="form-label">{{ form.source_ip.label }}</label>
+                    {{ form.source_ip }}
+                </div>
+                <div class="form-group">
+                    <label for="{{ form.dest_ip.id_for_label }}" class="form-label">{{ form.dest_ip.label }}</label>
+                    {{ form.dest_ip }}
+                </div>
+                <div class="form-group">
+                    <label for="{{ form.protocol.id_for_label }}" class="form-label">{{ form.protocol.label }}</label>
+                    {{ form.protocol }}
+                </div>
+                <div class="form-group">
+                    <label for="{{ form.length.id_for_label }}" class="form-label">{{ form.length.label }}</label>
+                    {{ form.length }}
+                </div>
+                <div class="form-group">
+                    <label for="{{ form.info.id_for_label }}" class="form-label">{{ form.info.label }}</label>
+                    {{ form.info }}
+                </div>
+                <button type="submit" class="btn submit-btn">Submit Traffic Data</button>
+            </form>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>Timestamp</th>
+                        <th>Source IP</th>
+                        <th>Destination IP</th>
+                        <th>Protocol</th>
+                        <th>Length</th>
+                        <th>Info</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for data in traffic_data %}
+                    <tr>
+                        <td>{{ data.timestamp }}</td>
+                        <td>{{ data.source_ip }}</td>
+                        <td>{{ data.dest_ip }}</td>
+                        <td>{{ data.protocol }}</td>
+                        <td>{{ data.length }}</td>
+                        <td>{{ data.info }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="text-center">
+            <a href="{% url 'analyze' %}" class="btn analyze-btn">Analyze Traffic</a>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
